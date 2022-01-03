@@ -1,5 +1,7 @@
 package com.neosoft.dev.controller;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -112,6 +114,31 @@ public class EmployeAPIForTestingController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
+
+	}
+
+	@GetMapping("/sortEmployeeBasedOnDOJ")
+	public ResponseEntity<List<Employee>> sortedEmployee() {
+		List<Employee> empList = this.employeeRepository.findAll();
+		try {
+			if (empList.isEmpty()) {
+				throw new EmployeeCustomExceptions("list is empty");
+			}
+			System.out.println(empList.size());
+			Collections.sort(empList, new Comparator<Employee>() {
+				public int compare(Employee o1, Employee o2) {
+					return o1.getDateofjoining().compareTo(o2.getDateofjoining());
+				}
+			});
+		} catch (EmployeeCustomExceptions e) {
+			e.getMessage();
+		}
+		return new ResponseEntity<List<Employee>>(empList, HttpStatus.OK);
+	}
+
+	@GetMapping("/findByName/{name}")
+	public List<Employee> findEmployeeByName(@PathVariable("name") String name) {
+		return name != null ? this.employeeRepository.findByNameIs(name) : null;
 
 	}
 

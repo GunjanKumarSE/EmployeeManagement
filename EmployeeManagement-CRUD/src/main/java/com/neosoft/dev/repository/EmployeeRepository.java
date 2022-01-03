@@ -1,5 +1,7 @@
 package com.neosoft.dev.repository;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,5 +20,9 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	void softdeleteEmployee(@Param("id") long id);
 
 	public Employee findByEmail(String email);
+
+	public Employee findByName(String name);
+
+	List<Employee> findByNameIs(String name);
 
 }
