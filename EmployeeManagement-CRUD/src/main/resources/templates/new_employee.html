@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Management System</title>
+<style type="text/css">
+button {
+	padding: 10px;
+}
+
+span {
+	color: red;
+	font-style: italic;
+}
+
+form {
+	display: table;
+}
+
+form div {
+	display: table-row;
+}
+
+label, input, span, select {
+	display: table-cell;
+	margin: 5px;
+	text-align: left;
+}
+
+input[type=text], input[type=password], select, textarea {
+	width: 200px;
+	margin: 5px;
+}
+
+form div div {
+	display: table-cell;
+}
+</style>
+</head>
+<body>
+	<div align="center">
+		<h1>Employee Registration</h1>
+		<form action="#" th:action="@{/registerEmployee}" method="post" th:object="${employee}">
+			<!-- <div>
+				<label>Id:</label> <input type="hidden" th:field="*{id}" /><br />
+			</div> -->
+			<div>
+				<label>Full name:</label> <input type="text" th:field="*{name}" /><br />
+				<span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Full
+					name error</span>
+			</div>
+
+			<div>
+				<label>E-mail:</label> <input type="text" th:field="*{email}" /> <span
+					th:if="${#fields.hasErrors('email')}" th:errors="*{email}">E-mail
+					error</span>
+			</div>
+			
+			<div>
+				<label>Gender:</label> <input type="radio" th:field="*{gender}"
+					value="Male" />Male <input type="radio" th:field="*{gender}"
+					value="Female" />Female <span
+					th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">Gender
+					error</span>
+			</div>
+			
+			<div>
+				<label>Marital Status</label> <input type="radio" th:field="*{married}"
+					value="Married" />Married<input type="radio" th:field="*{married}"
+					value="Unmarried" />UnMarried
+				<span th:if="${#fields.hasErrors('married')}" th:errors="*{married}">Marriage
+					status error</span>
+			</div>
+
+			<div>
+				<label>Birthday:</label> <input type="date" th:field="*{birthday}" />
+				<span th:if="${#fields.hasErrors('birthday')}"
+					th:errors="*{birthday}">Birthday error</span>
+			</div>
+			
+			<div>
+				<label>Profession:</label> <select th:field="*{profession}">
+					<option th:each="p : ${listProfession}" th:value="${p}"
+						th:text="${p}" />
+				</select> <span th:if="${#fields.hasErrors('profession')}"
+					th:errors="*{profession}">Profession error</span>
+			</div>
+			
+			<div>
+				<label>Date of Joining:</label> <input type="date" th:field="*{dateofjoining}" />
+				<span th:if="${#fields.hasErrors('dateofjoining')}"
+					th:errors="*{dateofjoining}">Birthday error</span>
+			</div>
+
+			<div>
+				<label>Salary:</label> <input type="text"
+					th:field="*{salary}" /> <span
+					th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">Salary
+					error</span>
+			</div>
+
+			<!-- <div>
+				<label>Note:</label>
+				<textarea rows="5" cols="25" th:field="*{note}"></textarea>
+				<span th:if="${#fields.hasErrors('note')}" th:errors="*{note}">Note
+					error</span>
+			</div> -->
+
+			<div>
+				<div></div>
+				<div>
+					<button type="submit">Register</button>
+				</div>
+				<div></div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee Management System</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+	<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+	<script src="/js/datatable.js"></script>
+	<style>
+h2 {
+	text-align: center;
+}
+a.editor-create {
+        display: inline-block;
+        margin-bottom: 0.5em;
+    }
+</style>
+</head>
+<body>
+	<div class="container my-2">
+		<h2 class="">Employees List</h2>
+
+		<!-- <a th:href="@{/registerForm}" class=" editor-create btn btn-primary btn-sm mb-3" >
+			Add Employee </a> -->
+			<br>
+		<!-- <div th:if = "${Success!=null}">$[[Success]]</div> -->
+
+		<h3>Employees Table</h3>
+		<br>
+		<a th:href="@{/registerForm}" class="editor-create btn btn-primary btn-sm mb-3">Add Employee</a>
+    <table id="employeesTable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Employee Id</th>
+                <th>Employee Name</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>Marital Status</th>
+                <th>Birthday</th>
+                <th>Profession</th>
+                <th>Date Of Joining</th>
+                <th>Salary</th>
+                <th></th>
+            </tr>
+        </thead>
+    </table>
+	</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Delete Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete you data ? 
+        please opt type of delete.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class=" harddelete btn btn-secondary">Hard Delete</button>
+        <button type="button" class="softdelete btn btn-primary">Soft Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script type="text/javascript">
+
+	 $(document).ready(function() {
+		var table = $('#employeesTable').DataTable({
+			"sAjaxSource" : "/employees",
+			"sAjaxDataProp" : "",
+			"aoColumns" : [ {
+				"mData" : "id",
+				"render": function(data, type, row, meta){
+			            if(type === 'display'){
+			                data = '<a href="/showFormForUpdate/' + data + '">' + data + '</a>';
+			            }
+			            return data;
+			         }
+			}, {
+				"mData" : "name"
+			}, {
+				"mData" : "email"
+			}, {
+				"mData" : "gender"
+			}, {
+				"mData" : "married"
+			}, {
+				"mData" : "birthday"
+			}, {
+				"mData" : "profession"
+			}, {
+				"mData" : "dateofjoining"
+			}, {
+				"mData" : "salary"
+			},
+			 {
+				"mData" : "id","render" : function ( data, type, row, meta ) {
+					/* console.log(data);
+					console.log(row.id); */
+					var id=row.id;
+	              return  '<button type="button" onclick="deleteEmployee(' + row.id +')" class="btn btn-secondary">Delete</button>'
+	            }},
+			]
+		})
+	});
+			function deleteEmployee(id){
+			//console.log("Helloooooooooooooooooooo",id)
+			 $('#exampleModal').modal({
+		          backdrop: 'static',
+		          keyboard: false
+		      })
+		      $('.harddelete').click(function(){
+		    	  window.location.href= window.location.href = "/harddelete/employee/?id="+id+"";
+		      })
+		       $('.softdelete').click(function(){
+		    	  window.location.href= window.location.href = "/softdelete/employee/?id="+id+"";
+		      })
+		      
+			}
+</script>
+</html>
