@@ -76,7 +76,7 @@ public class IntegrationTestingRestTemplate {
 			Assert.assertEquals(200, result.getStatusCodeValue());
 			Employee emp = result.getBody();
 			// System.out.println(emp.getEmail());
-			Assert.assertEquals("suresh123.kumar@gmail.com", emp.getEmail());
+			Assert.assertEquals("ramesh.kumar@gmail.com", emp.getEmail());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,8 +91,8 @@ public class IntegrationTestingRestTemplate {
 			final String baseUrl = "http://localhost:8080/createEmployee";
 			URI uri = new URI(baseUrl);
 
-			Employee emp1 = new Employee(2, "anjali", "anjali123@gmail.com", "female", "Unmarried", new Date(),
-					"Tester", new Date(), 35000, false);
+			Employee emp1 = new Employee(2, "anjali", "kumari", "pune", 22222, "anjali123@gmail.com", "female",
+					"Unmarried", new Date(), "Tester", new Date(), 35000, false);
 
 			HttpHeaders headers = new HttpHeaders();
 
@@ -139,8 +139,8 @@ public class IntegrationTestingRestTemplate {
 			Map<String, String> params = new HashMap<String, String>();
 			params.put("id", "2");
 
-			Employee e = new Employee(2, "anjali", "anjali123@gmail.com", "female", "Unmarried", new Date(), "Tester",
-					new Date(), 35000, false);
+			Employee e = new Employee(2, "anjali", "kumari", "mumbai", 22222, "anjali123@gmail.com", "female",
+					"Unmarried", new Date(), "Tester", new Date(), 35000, false);
 
 			restTemplate.put(baseUrl, e, params);
 

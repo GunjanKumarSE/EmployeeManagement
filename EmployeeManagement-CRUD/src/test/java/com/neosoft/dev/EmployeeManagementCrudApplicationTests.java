@@ -27,7 +27,10 @@ class EmployeeManagementCrudApplicationTests {
 	public void testSaveEmployee() {
 		Employee emp = new Employee();
 		emp.setId(1l);
-		emp.setName("ramesh");
+		emp.setFirstName("ramesh");
+		emp.setLastName("Kumar");
+		emp.setAddress("gurgaon");
+		emp.setPinCode(22222);
 		emp.setEmail("ramesh.kumar@gmail.com");
 		emp.setGender("male");
 		emp.setMarried("Unmarried");
@@ -56,7 +59,7 @@ class EmployeeManagementCrudApplicationTests {
 	@Order(3)
 	public void testGetEmployeeById() {
 		Employee emp = this.employeeRepository.findById(1l).get();
-		assertEquals("ramesh", emp.getName());
+		assertEquals("ramesh", emp.getFirstName());
 	}
 
 	@Test

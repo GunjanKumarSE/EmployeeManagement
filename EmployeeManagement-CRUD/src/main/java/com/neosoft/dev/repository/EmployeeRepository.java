@@ -21,8 +21,13 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 
 	public Employee findByEmail(String email);
 
-	public Employee findByName(String name);
+	public Employee findByFirstName(String name);
 
-	List<Employee> findByNameIs(String name);
+	List<Employee> findByFirstNameIs(String name);
+
+	// , ' ', e.madein
+
+	@Query("SELECT e FROM Employee e WHERE CONCAT(e.firstName, ' ', e.lastName, ' ', e.pinCode) LIKE %?1%")
+	List<Employee> search(String keyword);
 
 }

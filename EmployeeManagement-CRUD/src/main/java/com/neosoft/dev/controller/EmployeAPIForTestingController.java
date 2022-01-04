@@ -79,7 +79,10 @@ public class EmployeAPIForTestingController {
 		Employee emp = employeeService.getEmployeeById(id);
 
 		if (emp != null) {
-			emp.setName(employee.getName());
+			emp.setFirstName(employee.getFirstName());
+			emp.setLastName(employee.getLastName());
+			emp.setAddress(employee.getAddress());
+			emp.setPinCode(employee.getPinCode());
 			emp.setEmail(employee.getEmail());
 			emp.setGender(employee.getGender());
 			emp.setMarried(employee.getMarried());
@@ -117,7 +120,7 @@ public class EmployeAPIForTestingController {
 
 	}
 
-	@GetMapping("/sortEmployeeBasedOnDOJ")
+	@GetMapping("/sortEmployeeBasedOnDOBAndDOJ")
 	public ResponseEntity<List<Employee>> sortedEmployee() {
 		List<Employee> empList = this.employeeRepository.findAll();
 		try {
@@ -125,20 +128,27 @@ public class EmployeAPIForTestingController {
 				throw new EmployeeCustomExceptions("list is empty");
 			}
 			System.out.println(empList.size());
-			Collections.sort(empList, new Comparator<Employee>() {
-				public int compare(Employee o1, Employee o2) {
-					return o1.getDateofjoining().compareTo(o2.getDateofjoining());
-				}
-			});
+//			Collections.sort(empList, new Comparator<Employee>() {
+//				public int compare(Employee o1, Employee o2) {
+//					return o1.getDateofjoining().compareTo(o2.getDateofjoining());
+//				}
+//			});
+			Collections.sort(empList,
+					Comparator.comparing(Employee::getBirthday).thenComparing(Employee::getDateofjoining));
 		} catch (EmployeeCustomExceptions e) {
 			e.getMessage();
 		}
 		return new ResponseEntity<List<Employee>>(empList, HttpStatus.OK);
 	}
 
-	@GetMapping("/findByName/{name}")
-	public List<Employee> findEmployeeByName(@PathVariable("name") String name) {
-		return name != null ? this.employeeRepository.findByNameIs(name) : null;
+	@GetMapping("/searchEmployeefirstNameOrLastNameOrPinCode/{keyword}")
+	public ResponseEntity<?> findEmployeeByName(@PathVariable("keyword") String keyword) {
+		if (keyword != null) {
+			List<Employee> list = this.employeeRepository.search(keyword);
+			return new ResponseEntity<>(list, HttpStatus.OK);
+		}
+
+		return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 
 	}
 

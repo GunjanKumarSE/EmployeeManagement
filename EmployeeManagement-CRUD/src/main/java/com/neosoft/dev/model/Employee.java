@@ -12,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -33,9 +34,25 @@ public class Employee {
 	@Column(name = "emp_id")
 	private long id;
 
-	@Column(name = "emp_name")
-	@Size(min = 3, max = 50, message = "name size in between 3 and 50")
-	private String name;
+//	@Column(name = "emp_name")
+//	@Size(min = 3, max = 50, message = "name size in between 3 and 50")
+//	private String name;
+
+	@Column(name = "emp_firstName")
+	@Size(min = 3, max = 50, message = "firstName size in between 3 and 50")
+	private String firstName;
+
+	@Column(name = "emp_lastName")
+	@Size(min = 3, max = 50, message = "lastName size in between 3 and 50")
+	private String lastName;
+
+	@Column(name = "emp_address")
+	@Size(min = 3, max = 50, message = "Address size in between 3 and 50")
+	private String address;
+
+	@Column(name = "emp_pinCode")
+	@NotNull(message = "pinCode can not be null")
+	private int pinCode;
 
 	@Column(name = "emp_email")
 	@NotBlank
@@ -64,12 +81,5 @@ public class Employee {
 	private long salary;
 
 	private boolean deleted = Boolean.FALSE;
-
-	@Override
-	public String toString() {
-		return "Employee [id=" + id + ", name=" + name + ", email=" + email + ", gender=" + gender + ", married="
-				+ married + ", birthday=" + birthday + ", profession=" + profession + ", dateofjoining=" + dateofjoining
-				+ ", salary=" + salary + ", deleted=" + deleted + "]";
-	}
 
 }

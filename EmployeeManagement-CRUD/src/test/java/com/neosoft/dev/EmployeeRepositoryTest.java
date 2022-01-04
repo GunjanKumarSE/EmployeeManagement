@@ -25,9 +25,9 @@ public class EmployeeRepositoryTest {
 
 	@Test
 	public void saveEmployeeTest() {
-		Employee emp = Employee.builder().id(4l).name("rani").email("rani123@gmail.com").gender("female")
-				.birthday(new Date()).profession("Tester").dateofjoining(new Date()).deleted(false).salary(20000)
-				.married("unmarried").build();
+		Employee emp = Employee.builder().id(4l).firstName("rani").lastName("kumari").address("bareilly").pinCode(10000)
+				.email("rani123@gmail.com").gender("female").birthday(new Date()).profession("Tester")
+				.dateofjoining(new Date()).deleted(false).salary(20000).married("unmarried").build();
 
 		employeeRepository.save(emp);
 
