@@ -101,11 +101,12 @@ public class EmployeAPIForTestingController {
 		try {
 
 			employeeService.deleteEmployeeById(id);
+
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
-			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			e.printStackTrace();
 		}
-
+		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@DeleteMapping("/softDelete/{id}")
