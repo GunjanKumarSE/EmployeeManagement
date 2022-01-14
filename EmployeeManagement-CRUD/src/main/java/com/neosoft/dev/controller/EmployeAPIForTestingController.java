@@ -12,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +40,7 @@ public class EmployeAPIForTestingController {
 	private EmployeeRepository employeeRepository;
 
 	@GetMapping(value = "/getAllEmployees", produces = MediaType.APPLICATION_JSON_VALUE)
+	@CrossOrigin("http://localhost:4200/")
 	public ResponseEntity<List<Employee>> getAllEmployees(Model model) {
 		List<Employee> list = employeeService.getAllEmployees();
 		try {
@@ -53,6 +55,7 @@ public class EmployeAPIForTestingController {
 	}
 
 	@GetMapping("/getEmployeeById/{id}")
+	@CrossOrigin("http://localhost:4200/")
 	public ResponseEntity<Employee> findEmployeeById(@PathVariable(name = "id") long id) {
 		Employee employee = this.employeeService.getEmployeeById(id);
 		if (employee != null) {
@@ -63,6 +66,7 @@ public class EmployeAPIForTestingController {
 	}
 
 	@PostMapping("/createEmployee")
+	@CrossOrigin("http://localhost:4200/")
 	public ResponseEntity<Employee> createEmployee(@Valid @RequestBody Employee employee, BindingResult bindingResult) {
 		try {
 			if (employee.getEmail() != null) {
@@ -75,6 +79,7 @@ public class EmployeAPIForTestingController {
 	}
 
 	@PutMapping("/updateEmployee/{id}")
+	@CrossOrigin("http://localhost:4200/")
 	public ResponseEntity<Employee> updateEmployee(@PathVariable("id") long id, @Valid @RequestBody Employee employee) {
 		Employee emp = employeeService.getEmployeeById(id);
 
@@ -97,6 +102,7 @@ public class EmployeAPIForTestingController {
 	}
 
 	@DeleteMapping("/hardDelete/{id}")
+	@CrossOrigin("http://localhost:4200/")
 	public ResponseEntity<HttpStatus> hardDeleteEmployee(@PathVariable(value = "id") long id) {
 		try {
 
@@ -143,6 +149,7 @@ public class EmployeAPIForTestingController {
 	}
 
 	@GetMapping("/searchEmployeefirstNameOrLastNameOrPinCode/{keyword}")
+	@CrossOrigin("http://localhost:4200/")
 	public ResponseEntity<?> findEmployeeByName(@PathVariable("keyword") String keyword) {
 		if (keyword != null) {
 			List<Employee> list = this.employeeRepository.search(keyword);
